@@ -1,0 +1,17 @@
+services:
+
+  htsget:
+    build:
+      context: .
+      dockerfile: deploy/Dockerfile
+    image: htsget-rs:latest
+    command: ["htsget-actix", "--config", "/config/download-config.toml"]
+    ports:
+      - 8088:8080
+    environment:
+      - FORMATTING_STYLE=Pretty
+      - RUST_LOG=debug
+    volumes:
+      - ./deploy/config:/config/
+    extra_hosts:
+      - dockerhost:host-gateway
