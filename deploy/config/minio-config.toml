@@ -1,6 +1,8 @@
 data_server_addr = "0.0.0.0:8081"
 ticket_server_addr = "0.0.0.0:8080"
 ticket_server_cors_allow_origins = "All"
+ticket_server_cert = "/certs/fullchain.pem"
+ticket_server_key = "/certs/privkey.pem"
 
 [[resolvers]]
 regex = ".*"
