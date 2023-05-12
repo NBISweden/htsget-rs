@@ -1,11 +1,23 @@
 services:
 
+  certmaker:
+    image: alpine:3.18
+    command:
+      - /bin/sh
+      - /deploy/make_certs.sh
+    volumes:
+      - ./deploy/make_certs.sh:/deploy/make_certs.sh
+      - certs:/certs
+
   htsget:
     build:
       context: .
       dockerfile: deploy/Dockerfile
     image: htsget-rs:latest
     command: ["htsget-actix", "--config", "/config/download-config.toml"]
+    depends_on:
+      certmaker:
+        condition: service_completed_successfully
     ports:
       - 8088:8080
     environment:
@@ -13,5 +25,9 @@ services:
       - RUST_LOG=debug
     volumes:
       - ./deploy/config:/config/
+      - certs:/certs
     extra_hosts:
       - dockerhost:host-gateway
+
+volumes:
+  certs:
