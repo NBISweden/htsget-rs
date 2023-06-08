@@ -6,7 +6,7 @@ RUN cargo install cargo-strip
 
 COPY . .
 
-RUN cargo build --release && \
+RUN cargo build --features url-storage --release && \
     cargo strip
 
 FROM debian:sid-slim
