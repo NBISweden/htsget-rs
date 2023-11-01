@@ -14,7 +14,7 @@ services:
       context: .
       dockerfile: deploy/Dockerfile
     image: htsget-rs:latest
-    command: ["htsget-actix", "--config", "/config/minio-config.toml"]
+    command: ["htsget-actix", "--config", "/config/download-config.toml"]
     depends_on:
       certmaker:
         condition: service_completed_successfully
